@@ -1,0 +1,98 @@
+html,
+body {
+    background: #131a26;
+    color: #fff;
+    font-family: "Roboto", Arial, sans-serif;
+}
+
+h1.title {
+    font-weight: bold;
+    font-size: 2rem;
+    line-height: 1.096;
+    letter-spacing: -0.02em;
+}
+
+.mainBox {
+    background: #212937;
+    border-radius: 6px;
+    padding: 50px;
+}
+
+.mainBox.overall {
+    .col {
+        border-right: 0.5px solid white;
+    }
+
+    .number {
+        font-weight: bold;
+        font-size: 1.33rem;
+    }
+
+    .title {
+        color: #687790;
+        font-size: 18px;
+    }
+}
+
+.infoRow:not(.first){
+    border-top: 0.5px solid white;
+}
+
+.infoRow {
+    .info {
+        font-size: 18px;
+
+        .red {
+            color: #df484a;
+        }
+        .yellow {
+            color: #f29030;
+        }
+        .lightgreen {
+            color: #3bd671;
+        }
+        .green {
+            color: #2e7f54;
+        }
+    }
+
+    .tick {
+        max-width: 15px;
+        margin: 0px 2px;
+
+        div {
+            height: 30px;
+            width: 100%;
+            border-radius: 6px;
+            background-color: #687790;
+        }
+        div:hover {
+            background-color: #445063;
+        }
+
+        .red {
+            background-color: #df484a;
+        }
+        .red:hover {
+            background-color: #803840;
+        }
+        .yellow {
+            background-color: #f29030;
+        }
+        .yellow:hover {
+            background-color: #895c33;
+        }
+        .lightgreen {
+            background-color: #3bd671;
+        }
+        .lightgreen:hover {
+            background-color: #2e7f54;
+        }
+        .green {
+            background-color: #2e7f54;
+        }
+        .green:hover {
+            background-color: #275445;
+        }
+    }
+}

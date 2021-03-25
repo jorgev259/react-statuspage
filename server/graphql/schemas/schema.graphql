@@ -1,0 +1,50 @@
+type Service {
+    id: ID!
+    name: String!
+    url: String!
+    timeout: Float!
+    interval: Float!
+    order: Int!
+
+    state: Boolean
+    uptimeDays(days: Int!): [ReportDay]!
+    responseTime(days: Int!): ResponseTime!
+    uptime(days: Int!): Float!
+}
+
+type Tick {
+    id: ID!
+    code: Int!
+    time: Float!
+    message: String!
+    good: Boolean!
+    createdAt: Int!
+    service: Service!
+}
+
+type ReportDay {
+    day: String!
+    uptime: Float!
+    responseTime: Float!
+}
+
+type ResponseTime {
+    avg: Float!
+    min: Float!
+    max: Float!
+}
+
+type Query {
+    title: String!
+
+    services: [Service]!
+    service(id: ID!): Service!
+
+    ticks: [Tick]!
+
+    uptime(days: Int!): Float!
+}
+
+type Mutation {
+    createService(name: String!, url:String!, timeout: Float!, interval: Float!): Service!
+}

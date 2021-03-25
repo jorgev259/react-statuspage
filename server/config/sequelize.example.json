@@ -1,0 +1,12 @@
+{
+    "mysql": {
+        "host": "localhost",
+        "username": "root",
+        "dialect": "mysql",
+        "database": "db",
+        "password":"password",
+        "waitForConnections": true,
+        "connectionLimit": 10,
+        "queueLimit": 0
+    }
+}

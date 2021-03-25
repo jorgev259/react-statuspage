@@ -1,0 +1,30 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@graphql-tools/load-files": "^6.2.7",
+    "@graphql-tools/merge": "^6.2.10",
+    "apollo-server-express": "^2.21.0",
+    "bcryptjs": "^2.4.3",
+    "cls-hooked": "^4.2.2",
+    "const": "^1.0.0",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-jwt": "^6.0.0",
+    "graphql": "^15.5.0",
+    "http-status": "^1.5.0",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.2.5",
+    "nodemon": "^2.0.7",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
+    "sequelize": "^6.5.0",
+    "url-monitor": "https://github.com/jorgev259/url-monitor.git"
+  },
+  "scripts": {
+    "start": "nodemon -e graphql,js,json --watch ./ --exec \"node ./main.js\""
+  }
+}

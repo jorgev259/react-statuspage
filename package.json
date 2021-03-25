@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "concurrently": "^5.3.0",
+    "cross-env": "^7.0.3",
+    "nodemon": "^2.0.7",
+    "standard": "^16.0.3"
+  },
+  "scripts": {
+    "push": "git pull && git push",
+    "dev": "cross-env REACT_APP_ENV=development concurrently -c \"blue,magenta\" \"yarn:client\" \"yarn:server\"",
+    "prod": "cross-env REACT_APP_ENV=production concurrently -c \"blue,magenta\" \"yarn:client\" \"yarn:server\"",
+    "client": "cd client && yarn start",
+    "server": "cd server && yarn start"
+  },
+  "standard": {
+    "parser": "./client/node_modules/babel-eslint"
+  }
+}

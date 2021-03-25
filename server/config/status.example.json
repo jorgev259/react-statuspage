@@ -1,0 +1,12 @@
+{
+    "title": "Squid Network",
+    "services": [
+        {
+            "name" : "Google Main Page",
+            "url" : "https://google.com",
+            "timeout" : 3000,
+            "interval" : 5000
+        }
+    ]
+    
+}
