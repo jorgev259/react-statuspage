@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.min.css'
 import './css/global.scss'
 
 import ReactHtmlParser from 'react-html-parser'
-import { useRoutes } from 'hookrouter'
+import { useRoutes, navigate } from 'hookrouter'
 import { ToastContainer } from 'react-toastify'
 import Cookies from 'js-cookie'
 import { HttpLink, ApolloLink, ApolloProvider, ApolloClient, InMemoryCache, from, useQuery, gql } from '@apollo/client'
@@ -54,14 +54,12 @@ function App () {
   }`)
   const routeResult = useRoutes(routes)
 
-  console.log(data)
-
   return (
     <>
       <ToastContainer newestOnTop />
       <Container>
         <Row className='my-4 py-2'>
-          <h1 className='title'>{data ? data.title : ''}</h1>
+          <h1 className='title' onClick={() => navigate('/')}>{data ? data.title : ''}</h1>
         </Row>
         {routeResult || <div />}
         {data && ReactHtmlParser(data.footer)}
