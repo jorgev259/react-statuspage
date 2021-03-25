@@ -1,8 +1,9 @@
 const sequelize = require('sequelize')
-const { title } = require('../../config/status.json')
+const { title, footer } = require('../../config/status.json')
 
 module.exports = {
   title: () => title,
+  footer: () => footer,
   services: (parent, args, { db }) => db.models.service.findAll(),
   service: (parent, { id }, { db }) => db.models.service.findByPk(id),
 

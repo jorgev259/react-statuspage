@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'react-toastify/dist/ReactToastify.min.css'
 import './css/global.scss'
 
+import ReactHtmlParser from 'react-html-parser'
 import { useRoutes } from 'hookrouter'
 import { ToastContainer } from 'react-toastify'
 import Cookies from 'js-cookie'
@@ -47,8 +48,13 @@ function AppWrapper () {
 }
 
 function App () {
-  const { data } = useQuery(gql`query Title{ title }`)
+  const { data } = useQuery(gql`query Title{ 
+    title 
+    footer
+  }`)
   const routeResult = useRoutes(routes)
+
+  console.log(data)
 
   return (
     <>
@@ -60,6 +66,7 @@ function App () {
           </Col>
         </Row>
         {routeResult || <div />}
+        {data && ReactHtmlParser(data.footer)}
       </Container>
     </>
   )

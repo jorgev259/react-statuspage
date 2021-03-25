@@ -53,7 +53,7 @@ function Overall () {
   return (
     <>
       <h4 className='mt-5'>Overall Uptime</h4>
-      <Row className='mainBox overall' style={{ marginBottom: '200px' }}>
+      <Row className='mainBox overall'>
         <Col>
           <Row className='number'>
             <Col>

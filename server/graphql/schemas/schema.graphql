@@ -37,6 +37,7 @@ type ResponseTime {
 
 type Query {
     title: String!
+    footer: String!
 
     services: [Service]!
     service(id: ID!): Service!
