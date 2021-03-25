@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize')
-const { STRING, INTEGER, FLOAT } = DataTypes
+const { STRING, INTEGER, FLOAT, BOOLEAN } = DataTypes
 
 module.exports = function (sequelize) {
   return sequelize.define('service', {
@@ -12,6 +12,10 @@ module.exports = function (sequelize) {
     url: STRING,
     timeout: FLOAT,
     interval: FLOAT,
-    order: INTEGER
+    order: INTEGER,
+    ping: {
+      type: BOOLEAN,
+      default: false
+    }
   })
 }

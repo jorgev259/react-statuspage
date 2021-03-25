@@ -25,6 +25,10 @@
     "url-monitor": "https://github.com/jorgev259/url-monitor.git"
   },
   "scripts": {
-    "start": "nodemon -e graphql,js,json --watch ./ --exec \"node ./main.js\""
+    "start": "nodemon -e graphql,js,json --watch ./ --exec \"node ./main.js\"",
+    "sequelize": "sequelize-cli"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.2.0"
   }
 }

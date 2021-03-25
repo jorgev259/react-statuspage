@@ -7,7 +7,7 @@ const namespace = cls.createNamespace('trans-namespace')
 
 Sequelize.useCLS(namespace)
 
-const config = require('../config/sequelize.json').mysql
+const config = require('../config/sequelize.json')
 const sequelize = new Sequelize(config)
 
 glob.sync(path.join(__dirname, 'models/*')).forEach(e => require(e)(sequelize))

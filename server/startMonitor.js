@@ -12,8 +12,8 @@ module.exports = async function startMonitor (db) {
   }))
 
   services.forEach(service => {
-    const { url, timeout, interval, id } = service
-    const website = new Urlmon({ url, timeout, interval, successCodes: [200, 301, 302, 403] })
+    const { url, timeout, interval, id, ping } = service
+    const website = new Urlmon({ url, timeout, interval, successCodes: [200, 301, 302, 403], ping })
 
     website.on('error', data => {
       submit(db, id, data, false)
