@@ -33,7 +33,7 @@ export default function Home () {
 
   return (
     <>
-      <h4>Uptime Last 90 days</h4>
+      <Row><h4>Services</h4></Row>
       <Row className='mainBox'>
         <Col>
           {data && data.services.map((service, i) => (
@@ -52,7 +52,7 @@ function Overall () {
 
   return (
     <>
-      <h4 className='mt-5'>Overall Uptime</h4>
+      <Row><h4 className='mt-5'>Overall Uptime</h4></Row>
       <Row className='mainBox overall'>
         <Col>
           <Row className='number'>

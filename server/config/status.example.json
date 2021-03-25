@@ -1,5 +1,6 @@
 {
-    "title": "Squid Network",
+    "title": "Dashboard",
+    "footer": "",
     "services": [
         {
             "name" : "Google Main Page",

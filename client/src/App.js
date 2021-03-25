@@ -61,9 +61,7 @@ function App () {
       <ToastContainer newestOnTop />
       <Container>
         <Row className='my-4 py-2'>
-          <Col>
-            <h1 className='title'>{data ? data.title : ''}</h1>
-          </Col>
+          <h1 className='title'>{data ? data.title : ''}</h1>
         </Row>
         {routeResult || <div />}
         {data && ReactHtmlParser(data.footer)}
