@@ -14,7 +14,7 @@ import Admin from './pages/Admin'
 import Service from './pages/Service'
 
 import UserContext from './UserContext'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row } from 'react-bootstrap'
 
 const routes = {
   '/': () => <Home />,
