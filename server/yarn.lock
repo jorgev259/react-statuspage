@@ -3167,8 +3167,8 @@ uri-js@^4.2.2:
     punycode "^2.1.0"
 
 "url-monitor@https://github.com/jorgev259/url-monitor.git":
-  version "1.4.3"
-  resolved "https://github.com/jorgev259/url-monitor.git#2abf25e350e4a3da275f5b5e71ef91e1da5a3664"
+  version "1.4.4"
+  resolved "https://github.com/jorgev259/url-monitor.git#d71b85343b3717fb0c544140b25ba336dec0d506"
   dependencies:
     http-status "^1.0.1"
     ping "^0.4.0"
