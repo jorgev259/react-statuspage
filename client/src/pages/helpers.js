@@ -43,7 +43,7 @@ export function SiteRow ({ first, last, service, nameFlag = false }) {
           <Col className='pl-0'>
             {nameFlag && (
               <>
-                <A href={`/service/${service.id}`}><span style={{ color: 'white' }}>{name}</span></A>
+                <A href={`/service/${service.id}`}><span style={{ color: 'white' }}>{name} ➟ </span></A>
                 <span className='mx-1'>|</span>
               </>
             )}
