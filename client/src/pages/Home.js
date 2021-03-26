@@ -1,8 +1,6 @@
 import { gql, useQuery } from '@apollo/client'
-import classnames from 'classnames'
-import { Col, Row, OverlayTrigger, Tooltip } from 'react-bootstrap'
-import { A } from 'hookrouter'
-import getColor from './helpers'
+import { Col, Row } from 'react-bootstrap'
+import { SiteRow } from './helpers'
 
 const servicesQuery = gql`
   query Services {
@@ -39,7 +37,7 @@ export default function Home () {
       <Row className='mainBox'>
         <Col>
           {data && data.services.map((service, i) => (
-            <SiteRow key={service.id} service={service} first={i === 0} last={i === data.services.length - 1} />
+            <SiteRow key={service.id} service={service} first={i === 0} last={i === data.services.length - 1} nameFlag />
           ))}
         </Col>
       </Row>
@@ -106,55 +104,5 @@ function Overall () {
         </Col>
       </Row>
     </>
-  )
-}
-
-function SiteRow ({ first, last, service }) {
-  const { name, uptimeDays, good } = service
-
-  const values = uptimeDays.map(r => r.uptime)
-  const avg = values.reduce((p, c) => p + c, 0) / values.length
-
-  return (
-    <Row className={classnames('infoRow', { first, 'pt-4': !first, 'pb-4': !last })}>
-      <Col>
-        <Row className='info'>
-          <Col className='pl-0'>
-            <A href={`/service/${service.id}`}><span style={{ color: 'white' }}>{name}</span></A>
-            <span className='mx-1'>|</span>
-            <span className={getColor(avg)}>{avg.toFixed(2)}%</span>
-          </Col>
-          <Col xs='auto' className={classnames('d-flex align-items-center pr-0', { lightgreen: good, red: !good })}>
-            <div className='status mx-1' style={{ width: '20px', height: '20px' }} />
-            <span>{good ? 'Operational' : 'Down'}</span>
-          </Col>
-        </Row>
-        <Row className='flex-nowrap mt-3 justify-content-end'>
-          {uptimeDays.map(r => <Tick key={r.day} day={r.day} value={r.uptime} />)}
-        </Row>
-      </Col>
-    </Row>
-  )
-}
-
-function Tick (props) {
-  const value = props.value
-  const color = getColor(value)
-
-  return (
-    <OverlayTrigger
-      placement='top'
-      overlay={
-        <Tooltip>
-          {props.day}
-          <br />
-          {value.toFixed(2)}%
-        </Tooltip>
-      }
-    >
-      <Col className='tick px-0'>
-        <div className={color} />
-      </Col>
-    </OverlayTrigger>
   )
 }

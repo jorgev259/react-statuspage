@@ -1,9 +1,6 @@
 import { gql, useQuery } from '@apollo/client'
-import classnames from 'classnames'
-import { Col, Row, OverlayTrigger, Tooltip } from 'react-bootstrap'
-// import { A } from 'hookrouter'
-
-import getColor from './helpers'
+import { Col, Row } from 'react-bootstrap'
+import { SiteRow } from './helpers'
 
 const serviceQuery = gql`
   query Services($id: ID!) {
@@ -12,6 +9,7 @@ const serviceQuery = gql`
       name
       url
       order
+      good
 
       uptimeDays(days: 90) {
         day
@@ -158,49 +156,5 @@ function ResponseTime (props) {
         </Col>
       </Row>
     </>
-  )
-}
-
-function SiteRow ({ first, last, service }) {
-  const { uptimeDays } = service
-
-  const values = uptimeDays.map(r => r.uptime)
-  const avg = values.reduce((p, c) => p + c, 0) / values.length
-
-  return (
-    <Row className={classnames('infoRow', { first, 'pt-4': !first, 'pb-4': !last })}>
-      <Col>
-        <Row className='info'>
-          <Col className='pl-0'>
-            <span className={getColor(avg)}>{avg.toFixed(2)}%</span>
-          </Col>
-        </Row>
-        <Row className='flex-nowrap mt-3 justify-content-end'>
-          {uptimeDays.map(r => <Tick key={r.day} day={r.day} value={r.uptime} />)}
-        </Row>
-      </Col>
-    </Row>
-  )
-}
-
-function Tick (props) {
-  const value = props.value
-  const color = getColor(value)
-
-  return (
-    <OverlayTrigger
-      placement='top'
-      overlay={
-        <Tooltip>
-          {props.day}
-          <br />
-          {value.toFixed(2)}%
-        </Tooltip>
-      }
-    >
-      <Col className='tick px-0'>
-        <div className={color} />
-      </Col>
-    </OverlayTrigger>
   )
 }
