@@ -5,6 +5,10 @@ module.exports = {
   Mutation: require('./Mutation'),
 
   Service: {
+    good: async (parent, args, { db }) => {
+      const tick = await db.models.tick.findOne({ where: { serviceId: parent.id }, order: [['createdAt', 'DESC']] })
+      return tick.good
+    },
     state: async (parent, args, { db }) => (await db.models.tick.findOne({
       attributes: ['good'],
       where: { serviceId: parent.id },

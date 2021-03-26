@@ -10,7 +10,7 @@ h1.title {
     font-size: 2rem;
     line-height: 1.096;
     letter-spacing: -0.02em;
-    cursor:pointer
+    cursor: pointer;
 }
 
 .mainBox {
@@ -35,7 +35,7 @@ h1.title {
     }
 }
 
-.infoRow:not(.first){
+.infoRow:not(.first) {
     border-top: 0.5px solid #131a26;
 }
 
@@ -54,6 +54,20 @@ h1.title {
         }
         .green {
             color: #2e7f54;
+        }
+
+        .status {
+            border-radius: 100%;
+        }
+        .red {
+            .status {
+                background-color: #df484a;
+            }
+        }
+        .lightgreen {
+            .status {
+                background-color: #3bd671;
+            }
         }
     }
 

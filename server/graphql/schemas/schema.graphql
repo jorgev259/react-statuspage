@@ -6,6 +6,7 @@ type Service {
     interval: Float!
     order: Int!
     ping: Boolean!
+    good: Boolean!
 
     state: Boolean
     uptimeDays(days: Int!): [ReportDay]!

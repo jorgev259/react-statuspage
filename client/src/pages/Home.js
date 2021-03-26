@@ -2,6 +2,7 @@ import { gql, useQuery } from '@apollo/client'
 import classnames from 'classnames'
 import { Col, Row, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import { A } from 'hookrouter'
+import getColor from './helpers'
 
 const servicesQuery = gql`
   query Services {
@@ -10,6 +11,7 @@ const servicesQuery = gql`
       name
       url
       order
+      good
 
       uptimeDays(days: 90) {
         day
@@ -107,20 +109,8 @@ function Overall () {
   )
 }
 
-function getColor (value) {
-  let color = ''
-
-  if (value !== null) {
-    color = 'green'
-    if (value < 99) color = 'lightgreen'
-    if (value < 95) color = 'yellow'
-    if (value < 90) color = 'red'
-  }
-  return color
-}
-
 function SiteRow ({ first, last, service }) {
-  const { name, uptimeDays } = service
+  const { name, uptimeDays, good } = service
 
   const values = uptimeDays.map(r => r.uptime)
   const avg = values.reduce((p, c) => p + c, 0) / values.length
@@ -134,8 +124,9 @@ function SiteRow ({ first, last, service }) {
             <span className='mx-1'>|</span>
             <span className={getColor(avg)}>{avg.toFixed(2)}%</span>
           </Col>
-          <Col xs='auto pr-0 lightgreen'>
-            <span>Operational</span>
+          <Col xs='auto' className={classnames('d-flex align-items-center pr-0', { lightgreen: good, red: !good })}>
+            <div className='status mx-1' style={{ width: '20px', height: '20px' }} />
+            <span>{good ? 'Operational' : 'Down'}</span>
           </Col>
         </Row>
         <Row className='flex-nowrap mt-3 justify-content-end'>
