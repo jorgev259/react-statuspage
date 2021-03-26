@@ -1,6 +1,7 @@
 import { gql, useQuery } from '@apollo/client'
 import { Col, Row } from 'react-bootstrap'
 import { SiteRow } from './helpers'
+import classnames from 'classnames'
 
 const servicesQuery = gql`
   query Services {
@@ -31,9 +32,25 @@ const overallQuery = gql`
 export default function Home () {
   const { data } = useQuery(servicesQuery)
 
+  const allGood = data && data.services.every(r => r.good)
+  const allBad = data && data.services.every(r => !r.good)
+
   return (
     <>
-      <Row><h4>Services</h4></Row>
+      <Row className={classnames('mainBox', { yellow: !allBad && !allGood, red: allBad, lightGreen: allGood })}>
+        <Col className='d-flex align-items-center '>
+          <div className='status mr-2' style={{ width: '20px', height: '20px' }} />
+          <h2 className='my-auto' style={{ fontWeight: 'bold' }}>
+            {!allBad && !allGood
+              ? 'Some systems down'
+              : (
+                  allGood ? 'All systems operational' : 'All systems down'
+                )}
+          </h2>
+        </Col>
+      </Row>
+
+      <Row className='mt-5'><h4>Services</h4></Row>
       <Row className='mainBox'>
         <Col>
           {data && data.services.map((service, i) => (

@@ -35,6 +35,19 @@ h1.title {
     }
 }
 
+.status {
+    border-radius: 100%;
+}
+.red .status {
+    background-color: #df484a;
+}
+.lightgreen .status {
+    background-color: #3bd671;
+}
+.yellow .status {
+    background-color: #f29030;
+}
+
 .infoRow:not(.first) {
     border-top: 0.5px solid #131a26;
 }
@@ -54,20 +67,6 @@ h1.title {
         }
         .green {
             color: #2e7f54;
-        }
-
-        .status {
-            border-radius: 100%;
-        }
-        .red {
-            .status {
-                background-color: #df484a;
-            }
-        }
-        .lightgreen {
-            .status {
-                background-color: #3bd671;
-            }
         }
     }
 
