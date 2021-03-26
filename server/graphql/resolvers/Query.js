@@ -4,7 +4,7 @@ const { title, footer } = require('../../config/status.json')
 module.exports = {
   title: () => title,
   footer: () => footer,
-  services: (parent, args, { db }) => db.models.service.findAll(),
+  services: (parent, args, { db }) => db.models.service.findAll({ order: [['order', 'ASC']] }),
   service: (parent, { id }, { db }) => db.models.service.findByPk(id),
 
   ticks: (parent, args, { db }, info) => db.models.tick.findAll(),
