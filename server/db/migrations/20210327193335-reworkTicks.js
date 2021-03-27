@@ -3,7 +3,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.sequelize.transaction(async t => {
-      await queryInterface.sync()
+      await queryInterface.sequelize.sync()
 
       const dateFn = Sequelize.fn('date', Sequelize.col('createdAt'))
       const valueFn = [Sequelize.fn('avg', Sequelize.col('good')), 'value']
