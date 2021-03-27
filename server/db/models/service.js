@@ -13,6 +13,7 @@ module.exports = function (sequelize) {
     timeout: FLOAT,
     interval: FLOAT,
     order: INTEGER,
+    state: BOOLEAN,
     ping: {
       type: BOOLEAN,
       default: false

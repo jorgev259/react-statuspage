@@ -6,9 +6,8 @@ type Service {
     interval: Float!
     order: Int!
     ping: Boolean!
-    good: Boolean!
-
     state: Boolean
+    
     uptimeDays(days: Int!): [ReportDay]!
     responseTime(days: Int!): ResponseTime!
     uptime(days: Int!): Float!
@@ -16,18 +15,14 @@ type Service {
 
 type Tick {
     id: ID!
-    code: Int!
     time: Float!
-    message: String!
-    good: Boolean!
     createdAt: Int!
     service: Service!
 }
 
 type ReportDay {
-    day: String!
-    uptime: Float!
-    responseTime: Float!
+    date: String!
+    uptime: Float
 }
 
 type ResponseTime {

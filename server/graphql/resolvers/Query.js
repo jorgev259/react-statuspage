@@ -9,14 +9,14 @@ module.exports = {
 
   ticks: (parent, args, { db }, info) => db.models.tick.findAll(),
 
-  uptime: async (parent, { days }, { db }) => (await db.models.tick.findOne({
-    where: sequelize.where(
-      sequelize.fn('date', sequelize.col('createdAt')), {
+  uptime: async (parent, { days }, { db }) => (await db.models.uptime.findOne({
+    where: {
+      date: {
         [sequelize.Op.gt]: sequelize.fn('DATE_SUB', sequelize.fn('NOW'), sequelize.literal(`INTERVAL ${days} DAY`))
       }
-    ),
+    },
     attributes: [
-      [sequelize.fn('avg', sequelize.col('good')), 'value']
+      [sequelize.fn('AVG', sequelize.literal('score / count * 100')), 'uptime']
     ]
-  })).dataValues.value * 100
+  })).dataValues.uptime
 }

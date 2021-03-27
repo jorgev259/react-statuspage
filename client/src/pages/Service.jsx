@@ -9,10 +9,10 @@ const serviceQuery = gql`
       name
       url
       order
-      good
+      state
 
       uptimeDays(days: 90) {
-        day
+        date
         uptime
       }
 

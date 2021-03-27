@@ -29,7 +29,7 @@ function days (interval) {
 }
 
 export function SiteRow ({ first, last, service, nameFlag = false }) {
-  const { name, uptimeDays, good } = service
+  const { name, uptimeDays, state } = service
 
   const values = uptimeDays.map(r => r.uptime)
   const avg = values.reduce((p, c) => p + c, 0) / values.length
@@ -49,15 +49,15 @@ export function SiteRow ({ first, last, service, nameFlag = false }) {
             )}
             <span className={getColor(avg)}>{avg.toFixed(2)}%</span>
           </Col>
-          <Col xs='auto' className={classnames('d-flex align-items-center pr-0', { lightgreen: good, red: !good })}>
+          <Col xs='auto' className={classnames('d-flex align-items-center pr-0', { lightgreen: state, red: !state })}>
             <div className='status mx-1' style={{ width: '20px', height: '20px' }} />
-            <span>{good ? 'Operational' : 'Down'}</span>
+            <span>{state ? 'Operational' : 'Down'}</span>
           </Col>
         </Row>
         <Row className='flex-nowrap mt-3 justify-content-end'>
           {daysArray.map(date => {
-            const row = uptimeDays.find(r => r.day === date)
-            return <Tick key={date} day={date} value={row ? row.uptime : null} />
+            const row = uptimeDays.find(r => r.date === date)
+            return <Tick key={date} date={date} value={row ? row.uptime : null} />
           })}
         </Row>
       </Col>
@@ -65,7 +65,7 @@ export function SiteRow ({ first, last, service, nameFlag = false }) {
   )
 }
 
-export function Tick ({ value, day }) {
+export function Tick ({ value, date }) {
   const color = getColor(value)
 
   return (
@@ -73,9 +73,9 @@ export function Tick ({ value, day }) {
       placement='top'
       overlay={
         <Tooltip>
-          {day}
+          {date}
           <br />
-          {value ? value.toFixed(2) : ''}%
+          {value ? `${value.toFixed(2)}%` : ''}
         </Tooltip>
       }
     >

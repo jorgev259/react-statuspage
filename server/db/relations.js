@@ -1,4 +1,6 @@
 module.exports = sequelize => {
-  const { tick, service } = sequelize.models
+  const { tick, service, uptime } = sequelize.models
+
   tick.belongsTo(service)
+  uptime.belongsTo(service)
 }

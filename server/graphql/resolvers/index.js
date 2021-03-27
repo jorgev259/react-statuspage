@@ -5,33 +5,33 @@ module.exports = {
   Mutation: require('./Mutation'),
 
   Service: {
-    good: async (parent, args, { db }) => {
-      const tick = await db.models.tick.findOne({ where: { serviceId: parent.id }, order: [['createdAt', 'DESC']] })
-      return tick.good
-    },
-    state: async (parent, args, { db }) => (await db.models.tick.findOne({
-      attributes: ['good'],
-      where: { serviceId: parent.id },
-      order: [['createdAt', 'DESC']]
-    })).good,
-    uptimeDays: (parent, { days }, { db }) => db.models.tick.findAll({
+    uptimeDays: (parent, { days }, { db }) => db.models.uptime.findAll({
+      raw: true,
       where: {
-        [sequelize.Op.and]: [
-          { serviceId: parent.id },
-          sequelize.where(sequelize.fn('date', sequelize.col('createdAt')), {
-            [sequelize.Op.gt]: sequelize.fn('DATE_SUB', sequelize.fn('NOW'), sequelize.literal(`INTERVAL ${days} DAY`))
-          })
-        ]
+        serviceId: parent.id,
+        date: {
+          [sequelize.Op.gt]: sequelize.fn('DATE_SUB', sequelize.fn('NOW'), sequelize.literal(`INTERVAL ${days} DAY`))
+        }
       },
       attributes: [
-        [sequelize.fn('date', sequelize.col('createdAt')), 'day'],
-        [sequelize.fn('avg', sequelize.col('good')), 'uptime'],
-        [sequelize.fn('avg', sequelize.col('time')), 'responseTime']
+        'date',
+        [sequelize.literal('score / count * 100'), 'uptime']
       ],
-      group: [sequelize.fn('date', sequelize.col('createdAt'))],
-      order: [sequelize.fn('date', sequelize.col('createdAt'))]
+      order: ['date']
     }),
-    uptime: async (parent, { days }, { db }) => (await db.models.tick.findOne({
+    uptime: async (parent, { days }, { db }) => (await db.models.uptime.findOne({
+      raw: true,
+      where: {
+        serviceId: parent.id,
+        date: sequelize.fn('DATE', sequelize.fn('NOW'))
+      },
+      attributes: [
+        [sequelize.literal('score / count * 100'), 'uptime']
+      ]
+    })).uptime,
+
+    responseTime: async (parent, { days }, { db }) => db.models.tick.findOne({
+      raw: true,
       where: {
         [sequelize.Op.and]: [
           { serviceId: parent.id },
@@ -41,34 +41,13 @@ module.exports = {
         ]
       },
       attributes: [
-        [sequelize.fn('avg', sequelize.col('good')), 'value']
+        [sequelize.fn('avg', sequelize.col('time')), 'avg'],
+        [sequelize.fn('max', sequelize.col('time')), 'max'],
+        [sequelize.fn('min', sequelize.col('time')), 'min']
       ]
-    })).dataValues.value * 100,
-
-    responseTime: async (parent, { days }, { db }) => {
-      return (await db.models.tick.findOne({
-        where: {
-          [sequelize.Op.and]: [
-            { serviceId: parent.id },
-            sequelize.where(sequelize.fn('date', sequelize.col('createdAt')), {
-              [sequelize.Op.gt]: sequelize.fn('DATE_SUB', sequelize.fn('NOW'), sequelize.literal(`INTERVAL ${days} DAY`))
-            })
-          ]
-        },
-        attributes: [
-          [sequelize.fn('avg', sequelize.col('time')), 'avg'],
-          [sequelize.fn('max', sequelize.col('time')), 'max'],
-          [sequelize.fn('min', sequelize.col('time')), 'min']
-        ]
-      })).dataValues
-    }
+    })
   },
   Tick: {
     service: parent => parent.getService()
-  },
-  ReportDay: {
-    day: parent => parent.dataValues.day,
-    uptime: parent => parent.dataValues.uptime * 100,
-    responseTime: parent => parent.dataValues.responseTime
   }
 }

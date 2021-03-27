@@ -10,10 +10,10 @@ const servicesQuery = gql`
       name
       url
       order
-      good
+      state
 
       uptimeDays(days: 90) {
-        day
+        date
         uptime
       }
     }
@@ -32,13 +32,13 @@ const overallQuery = gql`
 export default function Home () {
   const { data } = useQuery(servicesQuery)
 
-  const allGood = data && data.services.every(r => r.good)
-  const allBad = data && data.services.every(r => !r.good)
+  const allGood = data && data.services.every(r => r.state)
+  const allBad = data && data.services.every(r => !r.state)
 
   return (
     <>
-      <Row className={classnames('mainBox', { yellow: !allBad && !allGood, red: allBad, lightGreen: allGood })}>
-        <Col className='d-flex align-items-center '>
+      <Row className={classnames('mainBox', { yellow: !allBad && !allGood, red: allBad, lightgreen: allGood })}>
+        <Col className='d-flex align-items-center'>
           <div className='status mr-2' style={{ width: '20px', height: '20px' }} />
           <h2 className='my-auto' style={{ fontWeight: 'bold' }}>
             {!allBad && !allGood
@@ -86,7 +86,7 @@ function Overall () {
         <Col>
           <Row className='number'>
             <Col>
-              {data && data.uptime7.toFixed(3)}
+              {data && data.uptime7.toFixed(3)}%
             </Col>
           </Row>
           <Row className='title'>
@@ -98,7 +98,7 @@ function Overall () {
         <Col>
           <Row className='number'>
             <Col>
-              {data && data.uptime30.toFixed(3)}
+              {data && data.uptime30.toFixed(3)}%
             </Col>
           </Row>
           <Row className='title'>
@@ -110,7 +110,7 @@ function Overall () {
         <Col>
           <Row className='number'>
             <Col>
-              {data && data.uptime90.toFixed(3)}
+              {data && data.uptime90.toFixed(3)}%
             </Col>
           </Row>
           <Row className='title'>

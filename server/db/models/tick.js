@@ -1,5 +1,5 @@
-const { DataTypes, BOOLEAN } = require('sequelize')
-const { STRING, INTEGER, FLOAT } = DataTypes
+const { DataTypes } = require('sequelize')
+const { INTEGER, FLOAT } = DataTypes
 
 module.exports = function (sequelize) {
   return sequelize.define('tick', {
@@ -8,9 +8,6 @@ module.exports = function (sequelize) {
       autoIncrement: true,
       type: INTEGER
     },
-    code: INTEGER,
-    time: FLOAT,
-    message: STRING,
-    good: BOOLEAN
+    time: FLOAT
   })
 }

@@ -1,4 +1,5 @@
 const Urlmon = require('url-monitor')
+const Sequelize = require('sequelize')
 const { services: defaultServices = [] } = require('./config/status.json')
 
 module.exports = async function startMonitor (db) {
@@ -27,10 +28,23 @@ module.exports = async function startMonitor (db) {
       submit(db, id, data, false)
     })
 
-    website.start()
+    // website.start()
   })
 }
 
-function submit (db, id, { code, message, time, url }, good) {
-  db.models.tick.create({ code, message, time, good, serviceId: id })
+async function submit (db, serviceId, { code, message, time, url }, good) {
+  db.models.tick.create({ time, serviceId })
+
+  const where = {
+    date: Sequelize.fn('DATE', Sequelize.fn('NOW')),
+    serviceId
+  }
+
+  await db.models.uptime.findOrCreate({ where })
+
+  db.models.service.update({ state: good }, { where: { id: serviceId } })
+  db.models.uptime.increment({
+    score: good ? 1 : 0,
+    count: 1
+  }, { where })
 }
