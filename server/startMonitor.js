@@ -28,7 +28,7 @@ module.exports = async function startMonitor (db) {
       submit(db, id, data, false)
     })
 
-    // website.start()
+    website.start()
   })
 }
 
