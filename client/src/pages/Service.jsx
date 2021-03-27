@@ -39,7 +39,7 @@ export default function Home (props) {
       <h4>Uptime Last 90 days</h4>
       <Row className='mainBox'>
         {loading
-          ? <Col className='d-flex justify-content-center'><Loader type='pacman' active /></Col>
+          ? <Col className='d-flex border-0 justify-content-center'><Loader type='pacman' active /></Col>
           : (
             <Col>
               {data && <SiteRow key={data.service.id} service={data.service} first last />}
@@ -61,7 +61,7 @@ function Overall (props) {
       <h4 className='mt-5'>Overall Uptime</h4>
       <Row className='mainBox overall'>
         {loading
-          ? <Col className='d-flex justify-content-center'><Loader type='pacman' active /></Col>
+          ? <Col className='d-flex border-0 justify-content-center'><Loader type='pacman' active /></Col>
           : (
             <>
               <Col>
@@ -128,7 +128,7 @@ function ResponseTime (props) {
         <Col style={{ border: 'none' }}>
           <Row>
             {loading
-              ? <Col className='d-flex justify-content-center'><Loader type='pacman' active /></Col>
+              ? <Col className='d-flex border-0 justify-content-center'><Loader type='pacman' active /></Col>
               : (
                 <>
                   <Col>
