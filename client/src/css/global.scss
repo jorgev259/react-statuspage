@@ -1,3 +1,13 @@
+$primary-color: #ffd900;
+@import 'loaders.css/src/animations/pacman.scss';
+
+.loader-hidden {
+  display: none;
+}
+.loader-active {
+  display: block;
+}
+
 html,
 body {
     background: #131a26;
