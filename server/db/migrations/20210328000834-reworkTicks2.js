@@ -19,7 +19,7 @@ module.exports = {
       })
 
       await queryInterface.dropTable('ticks')
-      await queryInterface.createTables('ticks', {
+      await queryInterface.createTable('ticks', {
         date: {
           type: DATEONLY,
           primaryKey: true
