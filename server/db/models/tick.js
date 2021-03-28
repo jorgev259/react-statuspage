@@ -1,13 +1,18 @@
 const { DataTypes } = require('sequelize')
-const { INTEGER, FLOAT } = DataTypes
+const { INTEGER, FLOAT, DATEONLY } = DataTypes
 
 module.exports = function (sequelize) {
   return sequelize.define('tick', {
-    id: {
-      primaryKey: true,
-      autoIncrement: true,
-      type: INTEGER
+    date: {
+      type: DATEONLY,
+      primaryKey: true
     },
-    time: FLOAT
+    serviceId: {
+      type: INTEGER,
+      primaryKey: true
+    },
+    average: FLOAT,
+    min: FLOAT,
+    max: FLOAT
   })
 }
