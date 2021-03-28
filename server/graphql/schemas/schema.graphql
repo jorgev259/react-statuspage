@@ -13,13 +13,6 @@ type Service {
     uptime(days: Int!): Float!
 }
 
-type Tick {
-    id: ID!
-    time: Float!
-    createdAt: Int!
-    service: Service!
-}
-
 type ReportDay {
     date: String!
     uptime: Float
@@ -37,8 +30,6 @@ type Query {
 
     services: [Service]!
     service(id: ID!): Service!
-
-    ticks: [Tick]!
 
     uptime(days: Int!): Float!
 }

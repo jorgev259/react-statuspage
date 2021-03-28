@@ -9,11 +9,11 @@ module.exports = function (sequelize) {
     },
     score: {
       type: INTEGER,
-      default: 0
+      defaultValue: 0
     },
     count: {
       type: INTEGER,
-      default: 0
+      defaultValue: 0
     },
     serviceId: {
       type: INTEGER,

@@ -11,8 +11,9 @@ module.exports = function (sequelize) {
       type: INTEGER,
       primaryKey: true
     },
-    average: FLOAT,
-    min: FLOAT,
-    max: FLOAT
+    score: { type: FLOAT, defaultValue: 0 },
+    count: { type: INTEGER, defaultValue: 0 },
+    min: { type: FLOAT, defaultValue: 0 },
+    max: { type: FLOAT, defaultValue: 0 }
   })
 }

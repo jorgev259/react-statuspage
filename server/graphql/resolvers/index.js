@@ -1,4 +1,4 @@
-const sequelize = require('sequelize')
+const { fn, literal, Op, col } = require('sequelize')
 
 module.exports = {
   Query: require('./Query'),
@@ -10,12 +10,12 @@ module.exports = {
       where: {
         serviceId: parent.id,
         date: {
-          [sequelize.Op.gt]: sequelize.fn('DATE_SUB', sequelize.fn('NOW'), sequelize.literal(`INTERVAL ${days} DAY`))
+          [Op.gt]: fn('DATE_SUB', fn('NOW'), literal(`INTERVAL ${days} DAY`))
         }
       },
       attributes: [
         'date',
-        [sequelize.literal('score / count * 100'), 'uptime']
+        [literal('score / count * 100'), 'uptime']
       ],
       order: ['date']
     }),
@@ -23,31 +23,27 @@ module.exports = {
       raw: true,
       where: {
         serviceId: parent.id,
-        date: sequelize.fn('DATE', sequelize.fn('NOW'))
+        date: fn('DATE', fn('NOW'))
       },
       attributes: [
-        [sequelize.literal('score / count * 100'), 'uptime']
+        [literal('score / count * 100'), 'uptime']
       ]
     })).uptime,
 
     responseTime: async (parent, { days }, { db }) => db.models.tick.findOne({
       raw: true,
       where: {
-        [sequelize.Op.and]: [
-          { serviceId: parent.id },
-          sequelize.where(sequelize.fn('date', sequelize.col('createdAt')), {
-            [sequelize.Op.gt]: sequelize.fn('DATE_SUB', sequelize.fn('NOW'), sequelize.literal(`INTERVAL ${days} DAY`))
-          })
-        ]
+        serviceId: parent.id,
+        date: {
+          [Op.gt]: fn('DATE_SUB', fn('NOW'), literal(`INTERVAL ${days} DAY`))
+        }
       },
       attributes: [
-        [sequelize.fn('avg', sequelize.col('time')), 'avg'],
-        [sequelize.fn('max', sequelize.col('time')), 'max'],
-        [sequelize.fn('min', sequelize.col('time')), 'min']
-      ]
+        [fn('MIN', col('min')), 'min'],
+        [fn('MAX', col('max')), 'max'],
+        [fn('AVG', literal('score / count')), 'avg']
+      ],
+      group: ['serviceId']
     })
-  },
-  Tick: {
-    service: parent => parent.getService()
   }
 }
