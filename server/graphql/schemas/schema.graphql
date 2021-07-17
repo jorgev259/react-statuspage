@@ -36,4 +36,5 @@ type Query {
 
 type Mutation {
     createService(name: String!, url:String!, timeout: Float!, interval: Float!, ping: Boolean!): Service!
+    login(key: String!): String
 }

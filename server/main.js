@@ -31,8 +31,7 @@ app.use(
     cache: true,
     secret: process.env.JWT_SECRET,
     algorithms: ['HS256'],
-    credentialsRequired: false,
-    getToken: (req) => req.cookies.token || null
+    credentialsRequired: false
   })
 )
 

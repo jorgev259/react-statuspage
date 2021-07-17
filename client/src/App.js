@@ -25,7 +25,7 @@ const routes = {
 const httpLink = new HttpLink({ uri: '/api' })
 const authLink = new ApolloLink((operation, forward) => {
   const token = Cookies.get('token')
-  if (token) operation.setContext({ headers: { authorization: token } })
+  if (token) operation.setContext({ headers: { authorization: `Bearer ${token}` } })
 
   return forward(operation)
 })

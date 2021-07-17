@@ -12,24 +12,26 @@ module.exports = async function startMonitor (db) {
     return db.models.service.findOrCreate({ where: { name }, defaults: { name, url, timeout, interval, order } })
   }))
 
-  services.forEach(service => {
-    const { url, timeout, interval, id, ping } = service
-    const website = new Urlmon({ url, timeout, interval, successCodes: [200, 301, 302, 403], ping })
+  services.forEach(service => startService(service, db))
+}
 
-    website.on('error', data => {
-      submit(db, id, data, false)
-    })
+function startService (service, db) {
+  const { url, timeout, interval, id, ping } = service
+  const website = new Urlmon({ url, timeout, interval, successCodes: [200, 301, 302, 403], ping })
 
-    website.on('available', data => {
-      submit(db, id, data, true)
-    })
-
-    website.on('unavailable', data => {
-      submit(db, id, data, false)
-    })
-
-    website.start()
+  website.on('error', data => {
+    submit(db, id, data, false)
   })
+
+  website.on('available', data => {
+    submit(db, id, data, true)
+  })
+
+  website.on('unavailable', data => {
+    submit(db, id, data, false)
+  })
+
+  website.start()
 }
 
 async function submit (db, serviceId, { code, message, time, url }, good) {
