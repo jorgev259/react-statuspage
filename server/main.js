@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser')
 require('dotenv').config({ path: '../.env' })
 const db = require('./db/startSequelize')
 
-const env = process.env.REACT_APP_ENV || 'development'
+const env = process.env.REACT_APP_ENV || 'production'
 const jwt = require('express-jwt')
 const port = process.env.PORT || 3005
 
@@ -21,12 +21,7 @@ const server = new ApolloServer({
     res,
     user: req.user || null
   }),
-  playground: {
-    endpoint: `http://localhost:${port}/api`,
-    settings: {
-      'editor.theme': 'dark'
-    }
-  }
+  playground: env === 'development' && { endpoint: `http://localhost:${port}/graphql` }
 })
 
 const app = express()

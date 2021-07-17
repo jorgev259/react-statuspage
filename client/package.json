@@ -15,7 +15,6 @@
     "js-cookie": "^2.2.1",
     "loaders.css": "^0.1.2",
     "luxon": "^1.26.0",
-    "node-sass": "^5.0.0",
     "react": "^17.0.1",
     "react-app-rewired": "^2.1.8",
     "react-bootstrap": "^1.5.0",
@@ -24,6 +23,7 @@
     "react-loaders": "^3.0.1",
     "react-scripts": "4.0.2",
     "react-toastify": "^7.0.3",
+    "sass": "^1.35.2",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
