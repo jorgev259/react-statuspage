@@ -262,7 +262,7 @@ function EditService ({ data, refetch }) {
           </Col>
           <Col xs='auto'>
             <Button type='submit'>
-              Add Service
+              Update Service
             </Button>
           </Col>
         </Form.Row>
