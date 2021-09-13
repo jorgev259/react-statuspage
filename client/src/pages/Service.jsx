@@ -36,13 +36,14 @@ export default function Home (props) {
 
   return (
     <>
+      <h4>{data ? data.name : ''}</h4>
       <h4>Uptime Last 90 days</h4>
       <Row className='mainBox'>
         {loading
           ? <Col className='d-flex border-0 justify-content-center'><Loader type='pacman' active /></Col>
           : (
             <Col>
-              {data && <SiteRow key={data.service.id} service={data.service} first last />}
+              {data && <SiteRow key={data.service.id} service={data.service} first last nameFlag />}
             </Col>
             )}
       </Row>
