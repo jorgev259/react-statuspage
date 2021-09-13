@@ -45,6 +45,7 @@ type Query {
 type Mutation {
     createService(name: String!, url:String!, timeout: Float!, interval: Float!, ping: Boolean!): Service!
     updateService(id: ID!, options: ServiceUpdateOptions!): Service!
+    deleteService(id: ID!): Int
     updateOrder(id: ID!, destination: Int!): Int
     
     login(key: String!): String

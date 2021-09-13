@@ -1,6 +1,6 @@
 module.exports = sequelize => {
   const { tick, service, uptime } = sequelize.models
 
-  tick.belongsTo(service)
-  uptime.belongsTo(service)
+  tick.belongsTo(service, { onDelete: 'CASCADE' })
+  uptime.belongsTo(service, { onDelete: 'CASCADE' })
 }

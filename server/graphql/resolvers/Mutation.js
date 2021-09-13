@@ -47,6 +47,15 @@ module.exports = {
       return 1
     })
   },
+  deleteService: async (parent, { id, destination }, { db, user }) => {
+    const item = await db.models.service.findByPk(id)
+    db.transaction(async (t1) => {
+      await item.destroy()
+    })
+
+    setTimeout(() => process.exit(), 10 * 1000)
+    return 1
+  },
 
   login: (parent, { key }, context) => {
     if (process.env.ADMIN_KEY === key) return jwt.sign({}, process.env.JWT_SECRET, { algorithm: 'HS256', expiresIn: '1d' })

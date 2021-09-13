@@ -24,6 +24,12 @@ const updateMutation = gql`
   }
 `
 
+const deleteMutation = gql`
+  mutation deleteService($id: ID!) {
+    deleteService(id: $id)
+  }
+`
+
 const orderMutation = gql`
   mutation updateOrder($id: ID!, $destination: Int!) {
     updateOrder(id:$id, destination: $destination)
@@ -182,6 +188,7 @@ function AdminForm () {
 
 function EditService ({ data, refetch }) {
   const [mutate] = useMutation(updateMutation)
+  const [deleteMutate] = useMutation(deleteMutation)
   const services = [...data.services].sort((a, b) => a.id - b.id)
   const [item, setItem] = useState(services[0])
   const formRef = useRef(null)
@@ -206,6 +213,16 @@ function EditService ({ data, refetch }) {
     mutate({ variables: { id: item.id, options: variables } }).then(result => {
       toast.success(`Updated service "${result.data.updateService.name}" succesfully!`)
       e.target.reset()
+      setTimeout(() => refetch(), 10 * 1000)
+    }).catch(err => {
+      console.log(err)
+      toast.error(err.message, { autoclose: false })
+    })
+  }
+
+  function handleDelete () {
+    deleteMutate({ variables: { id: item.id } }).then(result => {
+      toast.success('Delete service succesfully!')
       setTimeout(() => refetch(), 10 * 1000)
     }).catch(err => {
       console.log(err)
@@ -260,9 +277,17 @@ function EditService ({ data, refetch }) {
               <Form.Control type='number' min={0} name='timeout' required defaultValue={item.timeout} />
             </Form.Group>
           </Col>
+        </Form.Row>
+
+        <Form.Row className='w-100 mt-3'>
           <Col xs='auto'>
             <Button type='submit'>
               Update Service
+            </Button>
+          </Col>
+          <Col xs='auto'>
+            <Button onClick={() => handleDelete()}>
+              Delete Service
             </Button>
           </Col>
         </Form.Row>
