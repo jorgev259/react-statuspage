@@ -13,6 +13,14 @@ type Service {
     uptime(days: Int!): Float!
 }
 
+input ServiceUpdateOptions {
+    name: String
+    url: String
+    timeout: Float
+    interval: Float
+    ping: Boolean
+}
+
 type ReportDay {
     date: String!
     uptime: Float
@@ -36,5 +44,8 @@ type Query {
 
 type Mutation {
     createService(name: String!, url:String!, timeout: Float!, interval: Float!, ping: Boolean!): Service!
+    updateService(id: ID!, options: ServiceUpdateOptions!): Service!
+    updateOrder(id: ID!, destination: Int!): Int
+    
     login(key: String!): String
 }

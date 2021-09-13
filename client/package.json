@@ -17,6 +17,7 @@
     "luxon": "^1.26.0",
     "react": "^17.0.1",
     "react-app-rewired": "^2.1.8",
+    "react-beautiful-dnd": "^13.1.0",
     "react-bootstrap": "^1.5.0",
     "react-dom": "^17.0.1",
     "react-html-parser": "^2.0.2",
