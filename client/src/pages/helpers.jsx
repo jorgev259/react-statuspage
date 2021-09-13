@@ -54,8 +54,16 @@ export function SiteRow ({ first, last, service, nameFlag = false }) {
             <span>{state ? 'Operational' : 'Down'}</span>
           </Col>
         </Row>
-        <Row className='flex-nowrap mt-3 justify-content-end'>
+
+        <Row className='d-none d-md-flex flex-nowrap mt-3 justify-content-end'>
           {daysArray.map(date => {
+            const row = uptimeDays.find(r => r.date === date)
+            return <Tick key={date} date={date} value={row ? row.uptime : null} />
+          })}
+        </Row>
+
+        <Row className='d-flex d-md-none flex-nowrap mt-3 justify-content-end'>
+          {daysArray.slice(-35).map(date => {
             const row = uptimeDays.find(r => r.date === date)
             return <Tick key={date} date={date} value={row ? row.uptime : null} />
           })}
